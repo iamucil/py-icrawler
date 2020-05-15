@@ -73,6 +73,7 @@ coverage.xml
 
 # Scrapy stuff:
 .scrapy
+dbs/
 
 # Sphinx documentation
 docs/_build/
