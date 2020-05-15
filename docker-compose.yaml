@@ -9,15 +9,6 @@ services:
       - POSTGRES_PASSWORD=3sEm9PyNvvByHHZ
     ports:
       - "6432:5432"
-  scrapyd:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    volumes:
-      - .:/app
-    entrypoint: ["sh", "-c", "cd /app/scrapy_app && scrapyd"]
-    ports:
-      - "6800:6800"
   app:
     build:
       context: .
@@ -28,4 +19,12 @@ services:
       - "8080:8080"
     depends_on:
       - db
-      - scrapyd
+  scrapyd:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/app
+    entrypoint: ["sh", "-c", "cd /app/scrapy_app && scrapyd"]
+    ports:
+      - "6800:6800"
