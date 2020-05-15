@@ -7,8 +7,8 @@ from scrapy.spiders import CrawlSpider, Rule
 
 from .. import items
 
-class PyicrawlerSpider(CrawlSpider):
-    name = 'pyiCrawler'
+class pyicrawlerSpider(CrawlSpider):
+    name = 'pyicrawler'
     # allowed_domains = ['https://google.com']
     # start_urls = ['http://https://google.com/']
 

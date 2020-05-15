@@ -8,11 +8,11 @@ var siteUrl = {
 };
 var selectedCategory;
 
-$(document).ready(function(){
-    $(document).on('click', '#start-crawl', function(){
+$(document).ready(function () {
+    $(document).on('click', '#start-crawl', function () {
         selectedCategory = $('#site-select option:selected').val();
-        for(k in siteUrl){
-            if(k === selectedCategory){
+        for (k in siteUrl) {
+            if (k === selectedCategory) {
                 url = siteUrl[k]
             }
         }
@@ -29,7 +29,7 @@ $(document).ready(function(){
         })
     });
 
-    $(document).on('click', '#show-data', function(){
+    $(document).on('click', '#show-data', function () {
         selectedCategory = $('#site-select option:selected').val();
         $.ajax({
             url: '/api/showdata/',
@@ -43,45 +43,46 @@ $(document).ready(function(){
     });
 });
 
-function checkCrawlStatus(taskId, uniqueId){
+function checkCrawlStatus(taskId, uniqueId) {
     $.ajax({
-        url: '/api/crawl/?task_id='+taskId+'&unique_id='+uniqueId+'/',
+        url: '/api/crawl/?task_id=' + taskId + '&unique_id=' + uniqueId + '/',
         type: 'GET',
         success: showCrawledData,
         error: showCrawledDataFail,
     })
 }
 
-function crawlSuccess(data){
+function crawlSuccess(data) {
     taskId = data.task_id;
     uniqueId = data.unique_id;
-    statusInterval = setInterval(function() {checkCrawlStatus(taskId, uniqueId);}, 2000);
+    statusInterval = setInterval(function () { checkCrawlStatus(taskId, uniqueId); }, 2000);
 }
 
-function crawlFail(data){
+function crawlFail(data) {
     $('#progress').html(data.responseJSON.error);
     $('#progress').attr("class", "alert alert-danger");
 }
 
-function showCrawledData(data){
-    if (data.status){
+function showCrawledData(data) {
+    if (data.status) {
         $('#progress').attr("class", "alert alert-secondary");
         $('#progress').html('crawler is ' + data.status + ' ... ' + 'After crawling, the results are returned');
-    }else{
+    } else {
+        console.log(data);
         clearInterval(statusInterval);
         $('#progress').attr("class", "alert alert-primary");
         $('#progress').html('crawling is finished!');
         var list = data.data;
         var html = '';
-        for(var i=0; i<list.length; i++){
+        for (var i = 0; i < list.length; i++) {
             html += `
                 <tr>
-                    <th scope="row">`+ (i + 1) +`</th>
-                    <td width="20%"><a href="`+ list[i].url +`">`+ list[i].title +`</td>
-                    <td>`+ list[i].contents +`</td>
-                    <td>`+ list[i].views +`</td>
-                    <td>`+ list[i].recommends +`</td>
-                    <td>`+ list[i].published_date +`</td>
+                    <th scope="row">`+ (i + 1) + `</th>
+                    <td width="20%"><a href="`+ list[i].url + `">` + list[i].title + `</td>
+                    <td>`+ list[i].contents + `</td>
+                    <td>`+ list[i].views + `</td>
+                    <td>`+ list[i].recommends + `</td>
+                    <td>`+ list[i].published_date + `</td>
                 </tr>
             `;
         }
@@ -89,23 +90,23 @@ function showCrawledData(data){
     }
 }
 
-function showCrawledDataFail(data){
+function showCrawledDataFail(data) {
     $('#progress').html(data.responseJSON.error);
     $('#progress').attr("class", "alert alert-danger");
 }
 
-function showData(data){
+function showData(data) {
     var list = data.data;
     var html = '';
-    for(var i=0; i<list.length; i++){
+    for (var i = 0; i < list.length; i++) {
         html += `
             <tr>
-                <th scope="row">`+ (i + 1) +`</th>
-                <td width="20%"><a href="`+ list[i].url +`">`+ list[i].title +`</td>
-                <td>`+ list[i].contents +`</td>
-                <td>`+ list[i].views +`</td>
-                <td>`+ list[i].recommends +`</td>
-                <td>`+ list[i].published_date +`</td>
+                <th scope="row">`+ (i + 1) + `</th>
+                <td width="20%"><a href="`+ list[i].url + `">` + list[i].title + `</td>
+                <td>`+ list[i].contents + `</td>
+                <td>`+ list[i].views + `</td>
+                <td>`+ list[i].recommends + `</td>
+                <td>`+ list[i].published_date + `</td>
             </tr>
         `;
     }
@@ -114,7 +115,7 @@ function showData(data){
     $('#board').html(html);
 }
 
-function showDataFail(data){
+function showDataFail(data) {
     $('#progress').attr("class", "alert alert-danger");
     $('#progress').html(data.responseJSON.error);
     $('#board').empty();

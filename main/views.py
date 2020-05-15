@@ -11,6 +11,9 @@ from scrapyd_api import ScrapydAPI
 from main.models import ScrapyItem
 
 # connect to scrapyd service
+# change to proper domain
+# in this project we use docker-compose
+# view in file docker-compose.yaml and check service block scrapyd
 scrapyd = ScrapydAPI('http://scrapyd:6800')
 
 def is_valid_url(url):
