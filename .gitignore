@@ -129,3 +129,4 @@ venv
 docker-compose.override.*
 *.pid
 # End of https://www.gitignore.io/api/django
+.devcontainer/

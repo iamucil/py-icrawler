@@ -1,15 +1,18 @@
+{% load static %}
 <h4 class="header-intro">
-    <strong>Start Crawling</strong>. Click button bellow to start crawling
+    Web Crawling and Scraping with python <strong>Django</strong>
 </h4>
 <form>
     <div class="grid-container">
         <div class="grid-x grid-padding-x align-center">
-            <div class="medium-4 cell">
-                <button type="button" class="button large expanded" id="btn-crawler">Start</button>
+            <div class="medium-8 cell">
+                <h1>
+                    iCrawler
+                </h1>
             </div>
         </div>
     </div>
 </form>
 <ul class="header-subnav">
-    <li><a href="#" class=""><i class="fi-list-number size-18"></i> Crawler List</a></li>
+    <li><a href="{% url 'main:home' %}" class=""><i class="fi-list-number size-18"></i> Crawler List</a></li>
 </ul>

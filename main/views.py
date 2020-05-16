@@ -6,15 +6,25 @@ from django.views.decorators.http import require_POST, require_http_methods
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.views import generic
 from scrapyd_api import ScrapydAPI
-# from main.utils import URLUtil
-from main.models import ScrapyItem
+from main.models import ScrapyItem, Quote
 
 # connect to scrapyd service
 # change to proper domain
 # in this project we use docker-compose
 # view in file docker-compose.yaml and check service block scrapyd
 scrapyd = ScrapydAPI('http://scrapyd:6800')
+
+# this will be used in index/home view
+# https://docs.djangoproject.com/en/3.0/topics/class-based-views/
+class IndexView(generic.ListView):
+    template_name = 'main/index.html'
+    context_object_name = 'quotes'
+
+    def get_queryset(self):
+        """Return all scrapped quotes"""
+        return Quote.objects.all()
 
 def is_valid_url(url):
     validate = URLValidator()

@@ -3,95 +3,100 @@
 {% block title %}{{ block.super }} - Maplestory bulletin board crawler{% endblock %}
 
 {% block page-content %}
-<div class="cell large-12 medium-12">
-    <table class="unstriped">
-        <thead>
-            <tr>
-                <th width="200">#</th>
-                <th width="150">Title</th>
-                <th>Content</th>
-                <th width="150">Views</th>
-                <th width="150">Recommends</th>
-                <th width="200">published_date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>This is longer content Donec id elit non mi porta gravida at eget metus.</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-            </tr>
-            <tr>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>This is longer Content Goes Here Donec id elit non mi porta gravida at eget metus.</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-            </tr>
-            <tr>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>This is longer Content Goes Here Donec id elit non mi porta gravida at eget metus.</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-            </tr>
-        </tbody>
-    </table>
+{% load i18n static %}
+<div class="grid-container ">
+    <div class="grid-x grid-padding-x align-center">
+        <div class="cell medium-9 large-9">
+            <h4 class="page-intro text-center"><strong>Basic demo from the oficial tutorial that crawls data from
+                    http://quotes.toscrape.com.</strong> using django as a base framework to handle request and
+                presentation on the web. As for backend we use scrapy to handle crawling and scraping data from specific
+                site, in this case we will get data from <a
+                    href="http://quotes.toscrape.com">http://quotes.toscrape.com</a></h4>
+            <form>
+                <div class="grid-container">
+                    <div class="grid-x grid-padding-x align-center">
+                        <div class="cell large-4 medium-4">
+                            <button type="submit" class="button large expanded">Start Crawling</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="grid-x grid-padding-x align-center">
+                <div class="cell large-4 medium-4">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid-x grid-margin-x">
+        <div class="large-12 medium-12 cell">
+            <hr class="dotted" />
+        </div>
+    </div>
+    <div class="grid-x grid-margin-x align-center">
+        <div class="cell large-6 medium-6">
+            {% if quotes %}
+            <div class="timeline">
+
+                {% for quote in quotes %}
+                <div class="testimonial-block-vertical">
+                    <div class="testimonial-block-vertical-quote">
+                        <p>{{ quote.text }}</p>
+                    </div>
+                    <div class="testimonial-block-vertical-person">
+                        <img class="testimonial-block-vertical-avatar" src="https://placehold.it/60" alt="" />
+                        <div>
+                            <p class="testimonial-block-vertical-name">{{ quote.author|upper }}</p>
+                            <p class="testimonial-block-vertical-info">Important person, some Company</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-x grid-margin-x">
+                    <div class="large-12 medium-12 cell">
+                        <hr class="dotted" />
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
 </div>
 
 {% endblock %}
-{% load i18n static %}
-<!DOCTYPE html>
-<html lang="en">
+{% block blockjs %}
+<script type="text/javascript">
+    var taskId;
+    var uniqueId;
+    var statusInterval;
+    var url;
+    var siteUrl = 'http://quotes.toscrape.com/';
+    var selectedCategory;
 
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static "css/index.css" %}">
-        <title>Maplestory bulletin board crawler</title>
-    </head>
+    $(document).ready(function () {
+        $("form").submit(function (event) {
+            var form = new FormData();
+            form.append("url", siteUrl);
 
-    <body>
-        <div class="container-fluid">
-            <h1>MapleStory inven board crawling</h1>
-            <div class="col">
-                <select id="site-select">
-                    <option value="1">Wish board</option>
-                    <option value="2">Free Board</option>
-                </select>
-                <button id="start-crawl" class="btn btn-primary">Start crawling</button>
-                <button id="show-data" class="btn btn-info">View all</button>
-            </div>
-            <div id="progress"></div>
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">title</th>
-                        <th scope="col">contents</th>
-                        <th scope="col">views</th>
-                        <th scope="col">recommends</th>
-                        <th scope="col">published_date</th>
-                    </tr>
-                </thead>
-                <tbody id="board"></tbody>
-            </table>
-        </div>
+            var settings = {
+                "url": "{% url 'main:crawl' %}",
+                "method": "POST",
+                "timeout": 0,
+                "processData": false,
+                "mimeType": "multipart/form-data",
+                "contentType": false,
+                "data": form
+            };
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="/static/js/index.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-    </body>
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+            }).fail(function () {
+                alert("error");
+            });
 
-</html>
+            event.preventDefault();
+        });
+    });
+</script>
+{% endblock %}

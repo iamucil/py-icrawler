@@ -39,14 +39,18 @@
                 </div>
             </header>
             <div class="page-content">
-                <div class="grid-container ">
-                    <div class="grid-x grid-margin-x">
-                        {% block page-content %}{% endblock %}
-                    </div>
-                </div>
+                {% block page-content %}{% endblock %}
             </div>
-
         </div>
+        <script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/motion-ui.min.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/what-input.min.js" %}"></script>
+        <script type"text/javascript" src="{% static "js/foundation.min.js" %}"></script>
+        <script type="text/javascript" src="{%static "js/app.js" %}"></script>
+        {% autoescape off %}
+        {% block blockjs %}
+        {% endblock %}
+        {% endautoescape %}
     </body>
 
 </html>
