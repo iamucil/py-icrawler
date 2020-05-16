@@ -39,7 +39,7 @@
 from pydispatch import dispatcher
 from scrapy import signals
 
-from main.models import ScrapyItem
+from main.models import Quote
 
 
 class ScrapyAppPipeline(object):
@@ -54,17 +54,19 @@ class ScrapyAppPipeline(object):
         )
 
     def process_item(self, item, spider):
-        scrapy_item = ScrapyItem()
-        scrapy_item.unique_id = self.unique_id
-        scrapy_item.title = item['title']
-        scrapy_item.contents = item['contents']
-        scrapy_item.published_date = item['published_date']
-        scrapy_item.views = item['views']
-        scrapy_item.recommends = item['recommends']
-        scrapy_item.url = item['url']
-        scrapy_item.category = item['category']
+        # scrapy_item = ScrapyItem()
+        # scrapy_item.unique_id = self.unique_id
+        # scrapy_item.title = item['title']
+        # scrapy_item.contents = item['contents']
+        # scrapy_item.published_date = item['published_date']
+        # scrapy_item.views = item['views']
+        # scrapy_item.recommends = item['recommends']
+        # scrapy_item.url = item['url']
+        # scrapy_item.category = item['category']
 
-        scrapy_item.save()
+        # scrapy_item.save()
+        quote = Quote(text=item.get('text'), author=item.get('author'))
+        quote.save()
         return item
 
     def spider_closed(self, spider):

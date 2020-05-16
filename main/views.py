@@ -55,7 +55,7 @@ def Crawl(request):
         # But we can pass other arguments, though
         # this returns a ID which belongs and will be belong to this task
         # We are going to use that to check task's status.
-        task = scrapyd.schedule('default', 'icrawler', settings=settings, url=url, domain=domain)
+        task = scrapyd.schedule('default', 'pyicrawler', settings=settings, url=url, domain=domain)
 
         return JsonResponse({'task_id': task, 'unique_id': unique_id, 'status': 'started'})
 
