@@ -1,3 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }} - Maplestory bulletin board crawler{% endblock %}
+
+{% block page-content %}
+<div class="cell large-12 medium-12">
+    <table class="unstriped">
+        <thead>
+            <tr>
+                <th width="200">#</th>
+                <th width="150">Title</th>
+                <th>Content</th>
+                <th width="150">Views</th>
+                <th width="150">Recommends</th>
+                <th width="200">published_date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Content Goes Here</td>
+                <td>Content Goes Here</td>
+                <td>This is longer content Donec id elit non mi porta gravida at eget metus.</td>
+                <td>Content Goes Here</td>
+                <td>Content Goes Here</td>
+                <td>Content Goes Here</td>
+            </tr>
+            <tr>
+                <td>Content Goes Here</td>
+                <td>Content Goes Here</td>
+                <td>This is longer Content Goes Here Donec id elit non mi porta gravida at eget metus.</td>
+                <td>Content Goes Here</td>
+                <td>Content Goes Here</td>
+                <td>Content Goes Here</td>
+            </tr>
+            <tr>
+                <td>Content Goes Here</td>
+                <td>Content Goes Here</td>
+                <td>This is longer Content Goes Here Donec id elit non mi porta gravida at eget metus.</td>
+                <td>Content Goes Here</td>
+                <td>Content Goes Here</td>
+                <td>Content Goes Here</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
 {% load i18n static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,8 +53,6 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <!-- <link rel="stylesheet" href="../static/css/index.css">
-         -->
         <link rel="stylesheet" href="{% static "css/index.css" %}">
         <title>Maplestory bulletin board crawler</title>
     </head>

@@ -1,0 +1,52 @@
+{% load i18n static %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<!DOCTYPE html>
+<html class="no-js" lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl" {% endif %}
+    class="no-js">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{% block title %}iCrawler{% endblock %}</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static "apple-touch-icon.png" %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static "favicon-32x32.png" %} ">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static "favicon-16x16.png" %} ">
+        <link rel="manifest" href="{% static "site.webmanifest" %}">
+        {% block responsive %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+        {% block blockrobots %}
+        <meta name="robots" content="NONE,NOARCHIVE">
+        {% endblock %}
+        <link rel="stylesheet" type="text/css" href="{% static "css/app.css" %}">
+        {% if LANGUAGE_BIDI %}
+        <link rel="stylesheet" type="text/css" href="{% static "css/app-rtl.css" %}">{% endif %}
+        {% endblock %}
+        <link rel="stylesheet" type="text/css" href="{% static "css/foundation-icons-3/foundation-icons.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "css/base.css" %}{% endblock %}">
+        {% block extrastyle %}{% endblock %}
+    </head>
+    {% load i18n %}
+
+    <body>
+        <div class="page-container">
+            <!-- Start top bar -->
+            {% include 'base_top_navbar.html' %}
+            <!-- End top bar -->
+            <header class="header-section">
+                <div class="hero-section-text">
+                    {% include 'base_header_form.html' %}
+                </div>
+            </header>
+            <div class="page-content">
+                <div class="grid-container ">
+                    <div class="grid-x grid-margin-x">
+                        {% block page-content %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+
+</html>
