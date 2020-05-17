@@ -11,7 +11,7 @@ RUN apk add --no-cache --update postgresql-libs \
   libxml2 \ 
   libxslt-dev \
   && echo "********* ensure pip dependencies **********" \
-  && pip3 install --no-cache --upgrade pip setuptools wheel \
+  && pip install --no-cache --upgrade pip setuptools wheel \
   && apk add --no-cache --update --virtual .build-deps gcc musl-dev postgresql-dev \
   && pip install -r requirements.txt --no-cache-dir \
   && apk del --purge .build-deps \
