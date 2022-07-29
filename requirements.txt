@@ -1,5 +1,5 @@
 Django>=2.0,<=3.0
 psycopg2>=2.7,<3.0
-Scrapy==2.1.0
+Scrapy==2.6.2
 scrapyd==1.2.1
 python-scrapyd-api==2.1.2
